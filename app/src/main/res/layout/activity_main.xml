@@ -6,22 +6,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".LoginActivity">
+    tools:context="bnsantos.com.mixpanelexample.MainActivity">
 
-
-    <Spinner
+    <TextView
+        android:text="@string/hello_world"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userSpinner"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:id="@+id/loginButton"
-        android:layout_below="@+id/userSpinner"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

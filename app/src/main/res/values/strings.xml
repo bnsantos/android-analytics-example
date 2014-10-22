@@ -3,6 +3,22 @@
 
     <string name="app_name">MixPanelExample</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">MixPanel Settings</string>
+
+    <string-array name="users">
+        <item>Lady Gaga</item>
+        <item>Miley Cyrus</item>
+        <item>Lindsay Lohan</item>
+        <item>Madonna</item>
+    </string-array>
+
+    <string name="login">Login</string>
+    <string name="dialog_title">Set new MixPanel Token</string>
+    <string name="dialog_hint">Put new Token here</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="token_empty">Token can\'t be empty</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="login_message">Successfully logged as %s</string>
 
 </resources>
