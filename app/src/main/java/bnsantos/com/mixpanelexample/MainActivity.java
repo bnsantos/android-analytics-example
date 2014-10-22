@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,7 +28,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMixpanelAPI = MixpanelAPI.getInstance(this, Constants.getMixpanelToken());
+        setMixPanel();
 
         mLogs = StorageUtils.getLog(this);
 
@@ -33,6 +36,19 @@ public class MainActivity extends Activity {
         initListeners();
         initAdapter();
         addItemIntoAdapter(OperationType.LOGGED);
+    }
+
+    private void setMixPanel() {
+        mMixpanelAPI = MixpanelAPI.getInstance(this, Constants.getMixpanelToken());
+        mMixpanelAPI.identify(Constants.getCurrentUserId());
+        mMixpanelAPI.alias(Constants.getCurrentUserId(), Constants.getCurrentUser());
+        JSONObject props = new JSONObject();
+        try {
+            props.put("User Type", "Crazy woman");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mMixpanelAPI.registerSuperProperties(props);
     }
 
     private void initViews(){
@@ -92,15 +108,25 @@ public class MainActivity extends Activity {
         mHistoryAdapter.notifyDataSetChanged();
 
         showToast(operationType);
-        sendMixPanelEvent();
+        sendMixPanelEvent(operationType);
     }
 
     private void showToast(OperationType operationType){
         Toast.makeText(this, getString(R.string.successfully_added, operationType.name()), Toast.LENGTH_SHORT).show();
     }
 
-    private void sendMixPanelEvent(){
-        //TODO
+    private void sendMixPanelEvent(OperationType operationType) {
+        mMixpanelAPI.getPeople().increment(operationType.name(), 1);
+
+        JSONObject props = new JSONObject();
+        try {
+            props.put("Gender", "Female");
+            props.put("Plan", "Premium");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        mMixpanelAPI.track(operationType.name(), props);
     }
 
     @Override
