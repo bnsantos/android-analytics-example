@@ -20,5 +20,11 @@
     <string name="token_empty">Token can\'t be empty</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="login_message">Successfully logged as %s</string>
+    <string name="logged_as">Logged as: %s</string>
+    <string name="new_project">New Project</string>
+    <string name="new_note">New Note</string>
+    <string name="new_comment">New Comment</string>
+    <string name="history">History</string>
+    <string name="successfully_added">Successfully added %s</string>
 
 </resources>
