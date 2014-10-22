@@ -41,6 +41,10 @@ public class MainActivity extends Activity {
     private void setMixPanel() {
         mMixpanelAPI = MixpanelAPI.getInstance(this, Constants.getMixpanelToken());
         mMixpanelAPI.identify(Constants.getCurrentUserId());
+        mMixpanelAPI.getPeople().set("last_login", Calendar.getInstance().getTime());
+        mMixpanelAPI.getPeople().set("name", Constants.getCurrentUser());
+        mMixpanelAPI.getPeople().set("gender", "female");
+
         mMixpanelAPI.alias(Constants.getCurrentUserId(), Constants.getCurrentUser());
         JSONObject props = new JSONObject();
         try {
