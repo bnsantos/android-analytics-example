@@ -2,8 +2,6 @@ package bnsantos.com.mixpanelexample;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -12,16 +10,15 @@ import android.widget.Toast;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-
-import bnsantos.com.mixpanelexample.R;
+import java.util.List;
 
 public class MainActivity extends Activity {
     private MixpanelAPI mMixpanelAPI;
     private TextView mTitle;
-    private ArrayAdapter<CharSequence> mHistoryAdapter;
+    private ArrayAdapter<String> mHistoryAdapter;
     private ListView mHistoryListView;
+    private List<String> mLogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +27,12 @@ public class MainActivity extends Activity {
 
         mMixpanelAPI = MixpanelAPI.getInstance(this, Constants.getMixpanelToken());
 
+        mLogs = StorageUtils.getLog(this);
+
         initViews();
         initListeners();
         initAdapter();
+        addItemIntoAdapter(OperationType.LOGGED);
     }
 
     private void initViews(){
@@ -60,10 +60,18 @@ public class MainActivity extends Activity {
                 addComment();
             }
         });
+        findViewById(R.id.clearButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHistoryAdapter.clear();
+                mHistoryAdapter.notifyDataSetChanged();
+                StorageUtils.clear(MainActivity.this);
+            }
+        });
     }
 
     private void initAdapter(){
-        mHistoryAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, new ArrayList<CharSequence>());
+        mHistoryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mLogs);
         mHistoryListView.setAdapter(mHistoryAdapter);
     }
 
@@ -79,8 +87,7 @@ public class MainActivity extends Activity {
 
     private void addItemIntoAdapter(OperationType operationType){
         String operation = Constants.formatDate(Calendar.getInstance().getTime()) + ";" + Constants.getCurrentUser() + ";" + operationType.name();
-
-        //TODO persist it
+        StorageUtils.addLog(this, operation);
         mHistoryAdapter.add(operation);
         mHistoryAdapter.notifyDataSetChanged();
 
@@ -103,6 +110,6 @@ public class MainActivity extends Activity {
     }
 
     private enum OperationType{
-        PROJECT, NOTE, COMMENT
+        PROJECT, NOTE, COMMENT, LOGGED
     }
 }
