@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Constants {
     public static final String ISO_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    public static final String FLURRY_TOKEN = "";  //Your flurry token
     private static String CURRENT_USER;
     private static String CURRENT_USER_ID;
     private static String MIXPANEL_TOKEN = ""; //Set your default token here

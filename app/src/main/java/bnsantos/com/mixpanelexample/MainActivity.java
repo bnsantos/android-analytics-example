@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this, ""); //Your flurry token
+        FlurryAgent.onStartSession(this, Constants.FLURRY_TOKEN);
         setFlurryUser();
     }
 
