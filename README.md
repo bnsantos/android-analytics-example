@@ -1,4 +1,7 @@
-android-mixpanel-example
+android-analytics-example
 ========================
 
-Android MixPanel simple example
+Android Analytics simple example
+Integration:
+MixPanel
+Flurry
