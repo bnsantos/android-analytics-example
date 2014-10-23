@@ -58,13 +58,13 @@ public class MainActivity extends Activity {
         mMixpanelAPI.registerSuperProperties(props);
     }
 
-    private void initViews(){
+    private void initViews() {
         mTitle = (TextView) findViewById(R.id.loggedAs);
         mTitle.setText(getString(R.string.logged_as, Constants.getCurrentUser()));
         mHistoryListView = (ListView) findViewById(R.id.historyListView);
     }
 
-    private void initListeners(){
+    private void initListeners() {
         findViewById(R.id.projectButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,22 +93,24 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void initAdapter(){
+    private void initAdapter() {
         mHistoryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mLogs);
         mHistoryListView.setAdapter(mHistoryAdapter);
     }
 
-    private void addProject(){
+    private void addProject() {
         addItemIntoAdapter(OperationType.PROJECT);
     }
-    private void addNote(){
+
+    private void addNote() {
         addItemIntoAdapter(OperationType.NOTE);
     }
-    private void addComment(){
+
+    private void addComment() {
         addItemIntoAdapter(OperationType.COMMENT);
     }
 
-    private void addItemIntoAdapter(OperationType operationType){
+    private void addItemIntoAdapter(OperationType operationType) {
         String operation = Constants.formatDate(Calendar.getInstance().getTime()) + ";" + Constants.getCurrentUser() + ";" + operationType.name();
         StorageUtils.addLog(this, operation);
         mHistoryAdapter.add(operation);
@@ -119,7 +121,7 @@ public class MainActivity extends Activity {
         sendFlurryEvent(operationType);
     }
 
-    private void showToast(OperationType operationType){
+    private void showToast(OperationType operationType) {
         Toast.makeText(this, getString(R.string.successfully_added, operationType.name()), Toast.LENGTH_SHORT).show();
     }
 
@@ -154,7 +156,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this, Constants.FLURRY_TOKEN);
+        FlurryAgent.onStartSession(this, Constants.getFlurryToken());
         setFlurryUser();
     }
 
@@ -170,7 +172,7 @@ public class MainActivity extends Activity {
         FlurryAgent.onEndSession(this);
     }
 
-    private enum OperationType{
+    private enum OperationType {
         PROJECT, NOTE, COMMENT, LOGGED
     }
 }

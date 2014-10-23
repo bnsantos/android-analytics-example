@@ -64,8 +64,12 @@ public class LoginActivity extends FragmentActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.actionMixPanel) {
             showMixPanelConfigDialog();
+            return true;
+        }
+        if (id == R.id.actionFlurry) {
+            showFlurryConfigDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -79,7 +83,16 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void showMixPanelConfigDialog(){
-        MixPanelSettingsDialog mixPanelSettingsDialog = new MixPanelSettingsDialog();
-        mixPanelSettingsDialog.show(getSupportFragmentManager(), "SettingsFragment");
+        AnalyticsSettingsDialog analyticsSettingsDialog = new AnalyticsSettingsDialog();
+        analyticsSettingsDialog.setMode(AnalyticsSettingsDialog.SettingsMode.MIX_PANEL);
+        analyticsSettingsDialog.setTitle(R.string.dialog_mix_panel_title);
+        analyticsSettingsDialog.show(getSupportFragmentManager(), "MixPanelConfig");
+    }
+
+    private void showFlurryConfigDialog() {
+        AnalyticsSettingsDialog analyticsSettingsDialog = new AnalyticsSettingsDialog();
+        analyticsSettingsDialog.setMode(AnalyticsSettingsDialog.SettingsMode.FLURRY);
+        analyticsSettingsDialog.setTitle(R.string.dialog_flurry_title);
+        analyticsSettingsDialog.show(getSupportFragmentManager(), "FlurryConfig");
     }
 }

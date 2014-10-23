@@ -3,7 +3,8 @@
 
     <string name="app_name">MixPanelExample</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">MixPanel Settings</string>
+    <string name="mix_panel_settings">MixPanel Settings</string>
+    <string name="flurry_settings">Flurry Settings</string>
 
     <string-array name="users">
         <item>Lady Gaga</item>
@@ -13,7 +14,8 @@
     </string-array>
 
     <string name="login">Login</string>
-    <string name="dialog_title">Set new MixPanel Token</string>
+    <string name="dialog_mix_panel_title">Set new MixPanel Token</string>
+    <string name="dialog_flurry_title">Set new Flurry Token</string>
     <string name="dialog_hint">Put new Token here</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>

@@ -5,20 +5,20 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_title"
         android:layout_gravity="center_horizontal"
         android:layout_margin="5dp"
-        android:textStyle="bold"
+        android:text="@string/dialog_mix_panel_title"
         android:textSize="18sp"
-        android:id="@+id/dialogTitle" />
+        android:textStyle="bold" />
 
     <EditText
+        android:id="@+id/dialogToken"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:id="@+id/dialogToken"
-        android:hint="@string/dialog_hint"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:hint="@string/dialog_hint" />
 </LinearLayout>
