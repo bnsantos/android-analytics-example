@@ -8,13 +8,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends Activity {
     private MixpanelAPI mMixpanelAPI;
@@ -113,6 +116,7 @@ public class MainActivity extends Activity {
 
         showToast(operationType);
         sendMixPanelEvent(operationType);
+        sendFlurryEvent(operationType);
     }
 
     private void showToast(OperationType operationType){
@@ -133,10 +137,37 @@ public class MainActivity extends Activity {
         mMixpanelAPI.track(operationType.name(), props);
     }
 
+    private void sendFlurryEvent(OperationType operationType) {
+        Map<String, String> eventParams = new HashMap<String, String>();
+
+        eventParams.put("User", Constants.getCurrentUser());
+        eventParams.put("Plan", "Premium");
+
+        FlurryAgent.logEvent(operationType.name(), eventParams);
+    }
+
+    private void setFlurryUser() {
+        FlurryAgent.setGender(com.flurry.android.Constants.FEMALE);
+        FlurryAgent.setUserId(Constants.getCurrentUserId());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, ""); //Your flurry token
+        setFlurryUser();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mMixpanelAPI.flush();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     private enum OperationType{
