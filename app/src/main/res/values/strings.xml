@@ -28,5 +28,6 @@
     <string name="new_comment">New Comment</string>
     <string name="history">History</string>
     <string name="successfully_added">Successfully added %s</string>
+    <string name="send_to">Send logs to...</string>
 
 </resources>

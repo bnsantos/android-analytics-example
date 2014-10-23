@@ -46,4 +46,10 @@ public class StorageUtils {
         }
         return logs;
     }
+
+    public static String getRawLog(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        String raw = sharedPreferences.getString(LOG_MIXPANEL_EXAMPLE, "");
+        return raw.replace(SEPARATOR, "\n");
+    }
 }

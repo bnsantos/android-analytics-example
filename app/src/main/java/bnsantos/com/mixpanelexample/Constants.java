@@ -10,8 +10,8 @@ public class Constants {
     public static final String ISO_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     private static String CURRENT_USER;
     private static String CURRENT_USER_ID;
-    private static String MIXPANEL_TOKEN = ""; //Set your default token here
-    private static String FLURRY_TOKEN = "";  //Your flurry token
+    private static String MIXPANEL_TOKEN = "1ee93f4be1cecc3f57224c3630e93df7"; //Set your default token here
+    private static String FLURRY_TOKEN = "YWY8N8FP3QWDH4DMHY7H";  //Your flurry token
 
     public static String getCurrentUser() {
         return CURRENT_USER;

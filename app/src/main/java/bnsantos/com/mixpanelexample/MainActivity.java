@@ -1,6 +1,7 @@
 package bnsantos.com.mixpanelexample;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -91,6 +92,12 @@ public class MainActivity extends Activity {
                 StorageUtils.clear(MainActivity.this);
             }
         });
+        findViewById(R.id.shareButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareLogs();
+            }
+        });
     }
 
     private void initAdapter() {
@@ -151,6 +158,14 @@ public class MainActivity extends Activity {
     private void setFlurryUser() {
         FlurryAgent.setGender(com.flurry.android.Constants.FEMALE);
         FlurryAgent.setUserId(Constants.getCurrentUserId());
+    }
+
+    private void shareLogs() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, StorageUtils.getRawLog(this));
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
     }
 
     @Override
