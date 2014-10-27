@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
         eventParams.put("Gender", "Female");
         eventParams.put("Device", "android");
         eventParams.put("Language", this.getResources().getConfiguration().locale.getLanguage());
-        Countly.sharedInstance().recordEvent(operationType.name(), eventParams, 0);
+        Countly.sharedInstance().recordEvent(operationType.name(), eventParams, 1);
     }
 
     @Override

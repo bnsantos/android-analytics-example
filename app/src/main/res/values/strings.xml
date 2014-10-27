@@ -11,6 +11,10 @@
         <item>Miley Cyrus</item>
         <item>Lindsay Lohan</item>
         <item>Madonna</item>
+        <item>Katy Perry</item>
+        <item>Amy Whinehouse</item>
+        <item>Christina Aguilera</item>
+        <item>Britney Spears</item>
     </string-array>
 
     <string name="login">Login</string>

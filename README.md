@@ -5,3 +5,4 @@ Android Analytics simple example
 Integration:
 MixPanel
 Flurry
+Countly
