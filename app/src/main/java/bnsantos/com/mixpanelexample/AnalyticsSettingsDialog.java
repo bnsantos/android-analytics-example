@@ -55,21 +55,27 @@ public class AnalyticsSettingsDialog extends DialogFragment {
         return builder.create();
     }
 
-    private void setToken(){
+    private void setToken() {
         switch (mMode) {
             case MIX_PANEL:
                 Constants.setMixpanelToken(mToken.getText().toString());
                 break;
             case FLURRY:
                 Constants.setFlurryToken(mToken.getText().toString());
+                break;
+            case COUNTLY_KEY:
+                Constants.setCountlyKey(mToken.getText().toString());
+                break;
+            case COUNTLY_SERVER:
+                Constants.setCountlyServer(mToken.getText().toString());
         }
     }
 
-    private boolean validToken(){
-        return mToken.getText().length()>0;
+    private boolean validToken() {
+        return mToken.getText().length() > 0;
     }
 
-    private void showError(){
+    private void showError() {
         Toast.makeText(getActivity(), R.string.token_empty, Toast.LENGTH_SHORT).show();
     }
 
@@ -82,6 +88,6 @@ public class AnalyticsSettingsDialog extends DialogFragment {
     }
 
     public enum SettingsMode {
-        MIX_PANEL, FLURRY
+        MIX_PANEL, FLURRY, COUNTLY_SERVER, COUNTLY_KEY
     }
 }

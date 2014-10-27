@@ -29,5 +29,8 @@
     <string name="history">History</string>
     <string name="successfully_added">Successfully added %s</string>
     <string name="send_to">Send logs to...</string>
-
+    <string name="dialog_countly_server_title">Set new Countly server</string>
+    <string name="dialog_countly_key_title">Set new Contly Token</string>
+    <string name="countly_key">Contly Token</string>
+    <string name="countly_server">Contly Server</string>
 </resources>

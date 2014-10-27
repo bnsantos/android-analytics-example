@@ -3,6 +3,7 @@ package bnsantos.com.mixpanelexample;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -20,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ly.count.android.api.Countly;
+
 public class MainActivity extends Activity {
     private MixpanelAPI mMixpanelAPI;
     private TextView mTitle;
@@ -33,6 +36,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         setMixPanel();
+        initCountly();
 
         mLogs = StorageUtils.getLog(this);
 
@@ -126,6 +130,7 @@ public class MainActivity extends Activity {
         showToast(operationType);
         sendMixPanelEvent(operationType);
         sendFlurryEvent(operationType);
+        logCountlyEvent(operationType);
     }
 
     private void showToast(OperationType operationType) {
@@ -168,11 +173,27 @@ public class MainActivity extends Activity {
         startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
     }
 
+    private void initCountly() {
+        Countly.sharedInstance().init(this, Constants.getCountlyServer(), Constants.getCountlyKey(), Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
+    }
+
+    private void logCountlyEvent(OperationType operationType) {
+        Map<String, String> eventParams = new HashMap<String, String>();
+        eventParams.put("User", Constants.getCurrentUser());
+        eventParams.put("UserId", Constants.getCurrentUserId());
+        eventParams.put("Plan", "Premium");
+        eventParams.put("Gender", "Female");
+        eventParams.put("Device", "android");
+        eventParams.put("Language", this.getResources().getConfiguration().locale.getLanguage());
+        Countly.sharedInstance().recordEvent(operationType.name(), eventParams, 0);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         FlurryAgent.onStartSession(this, Constants.getFlurryToken());
         setFlurryUser();
+        Countly.sharedInstance().onStart();
     }
 
     @Override
@@ -185,6 +206,7 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         FlurryAgent.onEndSession(this);
+        Countly.sharedInstance().onStop();
     }
 
     private enum OperationType {

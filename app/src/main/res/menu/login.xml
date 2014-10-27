@@ -11,4 +11,14 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/flurry_settings" />
+    <item
+        android:id="@+id/actionCountlyServer"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/countly_server" />
+    <item
+        android:id="@+id/actionContlyKey"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/countly_key" />
 </menu>

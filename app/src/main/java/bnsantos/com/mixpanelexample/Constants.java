@@ -12,6 +12,8 @@ public class Constants {
     private static String CURRENT_USER_ID;
     private static String MIXPANEL_TOKEN = ""; //Set your default token here
     private static String FLURRY_TOKEN = "";  //Your flurry token
+    private static String COUNTLY_SERVER = ""; //Your countly server here
+    private static String COUNTLY_APP_KEY = ""; //Your countly app key here
 
     public static String getCurrentUser() {
         return CURRENT_USER;
@@ -48,5 +50,21 @@ public class Constants {
 
     public static void setFlurryToken(String FLURRY_TOKEN) {
         Constants.FLURRY_TOKEN = FLURRY_TOKEN;
+    }
+
+    public static String getCountlyServer() {
+        return COUNTLY_SERVER;
+    }
+
+    public static void setCountlyServer(String COUNTLY_SERVER) {
+        Constants.COUNTLY_SERVER = COUNTLY_SERVER;
+    }
+
+    public static String getCountlyKey() {
+        return COUNTLY_APP_KEY;
+    }
+
+    public static void setCountlyKey(String COUNTLY_APP_KEY) {
+        Constants.COUNTLY_APP_KEY = COUNTLY_APP_KEY;
     }
 }

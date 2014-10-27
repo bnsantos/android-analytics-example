@@ -64,13 +64,19 @@ public class LoginActivity extends FragmentActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.actionMixPanel) {
-            showMixPanelConfigDialog();
-            return true;
-        }
-        if (id == R.id.actionFlurry) {
-            showFlurryConfigDialog();
-            return true;
+        switch (id) {
+            case R.id.actionMixPanel:
+                showMixPanelConfigDialog();
+                return true;
+            case R.id.actionFlurry:
+                showFlurryConfigDialog();
+                return true;
+            case R.id.actionContlyKey:
+                showCountlyKeyConfigDialog();
+                return true;
+            case R.id.actionCountlyServer:
+                showCountlyServerConfigDialog();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -94,5 +100,19 @@ public class LoginActivity extends FragmentActivity {
         analyticsSettingsDialog.setMode(AnalyticsSettingsDialog.SettingsMode.FLURRY);
         analyticsSettingsDialog.setTitle(R.string.dialog_flurry_title);
         analyticsSettingsDialog.show(getSupportFragmentManager(), "FlurryConfig");
+    }
+
+    private void showCountlyServerConfigDialog() {
+        AnalyticsSettingsDialog analyticsSettingsDialog = new AnalyticsSettingsDialog();
+        analyticsSettingsDialog.setMode(AnalyticsSettingsDialog.SettingsMode.COUNTLY_SERVER);
+        analyticsSettingsDialog.setTitle(R.string.dialog_countly_server_title);
+        analyticsSettingsDialog.show(getSupportFragmentManager(), "CountlyServer");
+    }
+
+    private void showCountlyKeyConfigDialog() {
+        AnalyticsSettingsDialog analyticsSettingsDialog = new AnalyticsSettingsDialog();
+        analyticsSettingsDialog.setMode(AnalyticsSettingsDialog.SettingsMode.COUNTLY_KEY);
+        analyticsSettingsDialog.setTitle(R.string.dialog_countly_key_title);
+        analyticsSettingsDialog.show(getSupportFragmentManager(), "CountlyKey");
     }
 }
