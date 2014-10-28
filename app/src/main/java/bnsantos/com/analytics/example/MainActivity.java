@@ -1,4 +1,4 @@
-package bnsantos.com.mixpanelexample;
+package bnsantos.com.analytics.example;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -174,6 +174,7 @@ public class MainActivity extends Activity {
     }
 
     private void initCountly() {
+        Countly.sharedInstance().setLoggingEnabled(true);
         Countly.sharedInstance().init(this, Constants.getCountlyServer(), Constants.getCountlyKey(), Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
     }
 
@@ -191,6 +192,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        FlurryAgent.setLogEnabled(true);
         FlurryAgent.onStartSession(this, Constants.getFlurryToken());
         setFlurryUser();
         Countly.sharedInstance().onStart();

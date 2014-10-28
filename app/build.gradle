@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "bnsantos.com.mixpanelexample"
+        applicationId "bnsantos.com.analytics.example"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1

@@ -1,4 +1,4 @@
-package bnsantos.com.mixpanelexample;
+package bnsantos.com.analytics.example;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

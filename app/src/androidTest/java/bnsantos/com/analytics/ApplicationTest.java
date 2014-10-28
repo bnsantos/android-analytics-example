@@ -1,4 +1,4 @@
-package bnsantos.com.mixpanelexample;
+package bnsantos.com.analytics;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package bnsantos.com.mixpanelexample;
+package bnsantos.com.analytics.example;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
