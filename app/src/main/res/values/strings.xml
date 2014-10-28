@@ -37,4 +37,7 @@
     <string name="dialog_countly_key_title">Set new Contly Token</string>
     <string name="countly_key">Contly Token</string>
     <string name="countly_server">Contly Server</string>
+    <string name="enable_mix_panel">Enable MixPanel</string>
+    <string name="enable_flurry">Enable Flurry</string>
+    <string name="enable_countly">Enable Countly</string>
 </resources>

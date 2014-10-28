@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -15,6 +17,9 @@ import android.widget.Toast;
 public class LoginActivity extends FragmentActivity {
     private Spinner mLoginSpinner;
     private String mCurrentUser;
+    private CheckBox mMixPanel;
+    private CheckBox mFlurry;
+    private CheckBox mCountly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,29 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+
+        mMixPanel = (CheckBox) findViewById(R.id.checkBoxMixPanel);
+        mFlurry = (CheckBox) findViewById(R.id.checkBoxFlurry);
+        mCountly = (CheckBox) findViewById(R.id.checkBoxCountly);
+
+        mMixPanel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Constants.enableMixPanel = isChecked;
+            }
+        });
+        mFlurry.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Constants.enableFlurry = isChecked;
+            }
+        });
+        mCountly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Constants.enableCountly = isChecked;
             }
         });
     }

@@ -3,7 +3,6 @@ package bnsantos.com.analytics.example;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -47,20 +46,22 @@ public class MainActivity extends Activity {
     }
 
     private void setMixPanel() {
-        mMixpanelAPI = MixpanelAPI.getInstance(this, Constants.getMixpanelToken());
-        mMixpanelAPI.identify(Constants.getCurrentUserId());
-        mMixpanelAPI.getPeople().set("last_login", Calendar.getInstance().getTime());
-        mMixpanelAPI.getPeople().set("name", Constants.getCurrentUser());
-        mMixpanelAPI.getPeople().set("gender", "female");
+        if (Constants.enableMixPanel) {
+            mMixpanelAPI = MixpanelAPI.getInstance(this, Constants.getMixpanelToken());
+            mMixpanelAPI.identify(Constants.getCurrentUserId());
+            mMixpanelAPI.getPeople().set("last_login", Calendar.getInstance().getTime());
+            mMixpanelAPI.getPeople().set("name", Constants.getCurrentUser());
+            mMixpanelAPI.getPeople().set("gender", "female");
 
-        mMixpanelAPI.alias(Constants.getCurrentUserId(), Constants.getCurrentUser());
-        JSONObject props = new JSONObject();
-        try {
-            props.put("User Type", "Crazy woman");
-        } catch (JSONException e) {
-            e.printStackTrace();
+            mMixpanelAPI.alias(Constants.getCurrentUserId(), Constants.getCurrentUser());
+            JSONObject props = new JSONObject();
+            try {
+                props.put("User Type", "Crazy woman");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mMixpanelAPI.registerSuperProperties(props);
         }
-        mMixpanelAPI.registerSuperProperties(props);
     }
 
     private void initViews() {
@@ -138,31 +139,37 @@ public class MainActivity extends Activity {
     }
 
     private void sendMixPanelEvent(OperationType operationType) {
-        mMixpanelAPI.getPeople().increment(operationType.name(), 1);
+        if (Constants.enableMixPanel) {
+            mMixpanelAPI.getPeople().increment(operationType.name(), 1);
 
-        JSONObject props = new JSONObject();
-        try {
-            props.put("Gender", "Female");
-            props.put("Plan", "Premium");
-        } catch (JSONException e) {
-            e.printStackTrace();
+            JSONObject props = new JSONObject();
+            try {
+                props.put("Gender", "Female");
+                props.put("Plan", "Premium");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            mMixpanelAPI.track(operationType.name(), props);
         }
-
-        mMixpanelAPI.track(operationType.name(), props);
     }
 
     private void sendFlurryEvent(OperationType operationType) {
-        Map<String, String> eventParams = new HashMap<String, String>();
+        if (Constants.enableFlurry) {
+            Map<String, String> eventParams = new HashMap<String, String>();
 
-        eventParams.put("User", Constants.getCurrentUser());
-        eventParams.put("Plan", "Premium");
+            eventParams.put("User", Constants.getCurrentUser());
+            eventParams.put("Plan", "Premium");
 
-        FlurryAgent.logEvent(operationType.name(), eventParams);
+            FlurryAgent.logEvent(operationType.name(), eventParams);
+        }
     }
 
     private void setFlurryUser() {
-        FlurryAgent.setGender(com.flurry.android.Constants.FEMALE);
-        FlurryAgent.setUserId(Constants.getCurrentUserId());
+        if (Constants.enableFlurry) {
+            FlurryAgent.setGender(com.flurry.android.Constants.FEMALE);
+            FlurryAgent.setUserId(Constants.getCurrentUserId());
+        }
     }
 
     private void shareLogs() {
@@ -174,41 +181,55 @@ public class MainActivity extends Activity {
     }
 
     private void initCountly() {
-        Countly.sharedInstance().setLoggingEnabled(true);
-        Countly.sharedInstance().init(this, Constants.getCountlyServer(), Constants.getCountlyKey(), Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
+        if (Constants.enableCountly) {
+            Countly.sharedInstance().setLoggingEnabled(true);
+            Countly.sharedInstance().init(this, Constants.getCountlyServer(), Constants.getCountlyKey()/*, Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID)*/);
+        }
     }
 
     private void logCountlyEvent(OperationType operationType) {
-        Map<String, String> eventParams = new HashMap<String, String>();
-        eventParams.put("User", Constants.getCurrentUser());
-        eventParams.put("UserId", Constants.getCurrentUserId());
-        eventParams.put("Plan", "Premium");
-        eventParams.put("Gender", "Female");
-        eventParams.put("Device", "android");
-        eventParams.put("Language", this.getResources().getConfiguration().locale.getLanguage());
-        Countly.sharedInstance().recordEvent(operationType.name(), eventParams, 1);
+        if (Constants.enableCountly) {
+            Map<String, String> eventParams = new HashMap<String, String>();
+            eventParams.put("User", Constants.getCurrentUser());
+            eventParams.put("UserId", Constants.getCurrentUserId());
+            eventParams.put("Plan", "Premium");
+            eventParams.put("Gender", "Female");
+            eventParams.put("Device", "android");
+            eventParams.put("Language", this.getResources().getConfiguration().locale.getLanguage());
+            Countly.sharedInstance().recordEvent(operationType.name(), eventParams, 1);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.setLogEnabled(true);
-        FlurryAgent.onStartSession(this, Constants.getFlurryToken());
-        setFlurryUser();
-        Countly.sharedInstance().onStart();
+        if (Constants.enableFlurry) {
+            FlurryAgent.setLogEnabled(true);
+            FlurryAgent.onStartSession(this, Constants.getFlurryToken());
+            setFlurryUser();
+        }
+        if (Constants.enableCountly) {
+            Countly.sharedInstance().onStart();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mMixpanelAPI.flush();
+        if (Constants.enableMixPanel) {
+            mMixpanelAPI.flush();
+        }
     }
 
     @Override
     protected void onStop() {
+        if (Constants.enableFlurry) {
+            FlurryAgent.onEndSession(this);
+        }
+        if (Constants.enableCountly) {
+            Countly.sharedInstance().onStop();
+        }
         super.onStop();
-        FlurryAgent.onEndSession(this);
-        Countly.sharedInstance().onStop();
     }
 
     private enum OperationType {
