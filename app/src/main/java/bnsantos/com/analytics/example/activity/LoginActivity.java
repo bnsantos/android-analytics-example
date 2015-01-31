@@ -1,4 +1,4 @@
-package bnsantos.com.analytics.example;
+package bnsantos.com.analytics.example.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import bnsantos.com.analytics.example.AnalyticsSettingsDialog;
+import bnsantos.com.analytics.example.Constants;
+import bnsantos.com.analytics.example.R;
 
 
 public class LoginActivity extends FragmentActivity {
@@ -109,14 +113,14 @@ public class LoginActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void login(){
+    private void login() {
         Toast.makeText(this, getString(R.string.login_message, Constants.getCurrentUser()), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void showMixPanelConfigDialog(){
+    private void showMixPanelConfigDialog() {
         AnalyticsSettingsDialog analyticsSettingsDialog = new AnalyticsSettingsDialog();
         analyticsSettingsDialog.setMode(AnalyticsSettingsDialog.SettingsMode.MIX_PANEL);
         analyticsSettingsDialog.setTitle(R.string.dialog_mix_panel_title);
