@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AnalyticsEXample</string>
+    <string name="app_name">Analytics</string>
     <string name="hello_world">Hello world!</string>
     <string name="mix_panel_settings">MixPanel Settings</string>
     <string name="flurry_settings">Flurry Settings</string>
@@ -48,4 +48,6 @@
     <string name="enable_flurry">Enable Flurry</string>
     <string name="enable_countly">Enable Countly</string>
     <string name="enable_localytics">Enable Localytics</string>
+    <string name="user">User</string>
+    <string name="company">Company</string>
 </resources>

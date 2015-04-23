@@ -8,57 +8,118 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity">
 
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size"
+        android:text="@string/user"
+        android:layout_alignParentTop="true"/>
 
     <Spinner
         android:id="@+id/userSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@+id/userNameTextView"
+        android:layout_alignParentLeft="true"/>
 
+    <TextView
+        android:id="@+id/companyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size"
+        android:text="@string/company"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/userSpinner"/>
     <Spinner
         android:id="@+id/companySpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/userSpinner" />
+        android:layout_below="@+id/companyTextView" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
         android:layout_below="@+id/companySpinner"
         android:text="@string/login" />
+
+    <View
+        android:id="@+id/separator"
+        android:background="#ffffff"
+        android:layout_width = "fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/loginButton"
+        android:layout_margin="@dimen/margin"/>
 
     <CheckBox
         android:id="@+id/checkBoxMixPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/loginButton"
+        android:layout_below="@+id/separator"
         android:text="@string/enable_mix_panel" />
+    
+    <ImageView
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:src="@drawable/mp"
+        android:layout_alignTop="@+id/checkBoxMixPanel"
+        android:layout_toEndOf="@+id/checkBoxLocalytics"
+        android:id="@+id/mixPanelImageView"/>
 
     <CheckBox
         android:id="@+id/checkBoxFlurry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkBoxMixPanel"
         android:text="@string/enable_flurry" />
+
+    <ImageView
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:src="@drawable/flurry"
+        android:id="@+id/flurryImageView"
+        android:layout_alignTop="@+id/checkBoxFlurry"
+        android:layout_toEndOf="@+id/checkBoxLocalytics"/>
 
     <CheckBox
         android:id="@+id/checkBoxCountly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkBoxFlurry"
         android:text="@string/enable_countly" />
+
+    <ImageView
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:src="@drawable/countly"
+        android:layout_alignTop="@+id/checkBoxCountly"
+        android:layout_alignStart="@+id/flurryImageView"
+        android:id="@+id/countlyImageView"/>
 
     <CheckBox
         android:id="@+id/checkBoxLocalytics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkBoxCountly"
         android:text="@string/enable_localytics" />
+
+    <ImageView
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:src="@drawable/localytics"
+        android:layout_alignTop="@+id/checkBoxLocalytics"
+        android:layout_alignStart="@+id/countlyImageView"
+        android:id="@+id/localyticsImageView"/>
 </RelativeLayout>

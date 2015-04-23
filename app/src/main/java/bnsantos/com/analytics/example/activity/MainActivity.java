@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
     }
 
     private void addItemIntoAdapter(OperationType operationType) {
-        String operation = Constants.formatDate(Calendar.getInstance().getTime()) + ";" + Constants.getCurrentUser() + ";" + operationType.name();
+        String operation = Constants.formatDate(Calendar.getInstance().getTime()) + ";" + Constants.getCurrentUser() + ";" + Constants.getCurrentCompany()+ ";" + operationType.name();
         StorageUtils.addLog(this, operation);
         mHistoryAdapter.add(operation);
         mHistoryAdapter.notifyDataSetChanged();

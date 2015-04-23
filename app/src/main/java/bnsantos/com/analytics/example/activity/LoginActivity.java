@@ -1,6 +1,7 @@
 package bnsantos.com.analytics.example.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -108,8 +109,32 @@ public class LoginActivity extends FragmentActivity {
                 Constants.enableLocalytics = isChecked;
             }
         });
-    }
 
+        findViewById(R.id.mixPanelImageView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebPage("https://mixpanel.com/");
+            }
+        });
+        findViewById(R.id.flurryImageView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebPage("https://dev.flurry.com/");
+            }
+        });
+        findViewById(R.id.countlyImageView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebPage("https://count.ly/");
+            }
+        });
+        findViewById(R.id.localyticsImageView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebPage("http://www.localytics.com/");
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -174,5 +199,11 @@ public class LoginActivity extends FragmentActivity {
         analyticsSettingsDialog.setMode(AnalyticsSettingsDialog.SettingsMode.COUNTLY_KEY);
         analyticsSettingsDialog.setTitle(R.string.dialog_countly_key_title);
         analyticsSettingsDialog.show(getSupportFragmentManager(), "CountlyKey");
+    }
+
+    private void openWebPage(String url){
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 }
