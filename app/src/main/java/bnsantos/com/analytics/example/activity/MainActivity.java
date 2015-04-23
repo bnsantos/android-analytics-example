@@ -21,6 +21,7 @@ import bnsantos.com.analytics.example.StorageUtils;
 public class MainActivity extends Activity {
     private AnalyticsHelper mHelper;
     private TextView mTitle;
+    private TextView mCompany;
     private ArrayAdapter<String> mHistoryAdapter;
     private ListView mHistoryListView;
     private List<String> mLogs;
@@ -42,6 +43,8 @@ public class MainActivity extends Activity {
     private void initViews() {
         mTitle = (TextView) findViewById(R.id.loggedAs);
         mTitle.setText(getString(R.string.logged_as, Constants.getCurrentUser()));
+        mCompany = (TextView) findViewById(R.id.companyTextView);
+        mCompany.setText(getString(R.string.company_as, Constants.getCurrentCompany()));
         mHistoryListView = (ListView) findViewById(R.id.historyListView);
     }
 
