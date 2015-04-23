@@ -20,10 +20,13 @@ import bnsantos.com.analytics.example.R;
 
 public class LoginActivity extends FragmentActivity {
     private Spinner mLoginSpinner;
+    private Spinner mCompanySpinner;
     private String mCurrentUser;
+    private String mCurrentCompany;
     private CheckBox mMixPanel;
     private CheckBox mFlurry;
     private CheckBox mCountly;
+    private CheckBox mLocalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,16 @@ public class LoginActivity extends FragmentActivity {
         setContentView(R.layout.activity_login);
 
         mLoginSpinner = (Spinner) findViewById(R.id.userSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.users, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mLoginSpinner.setAdapter(adapter);
+        mCompanySpinner = (Spinner) findViewById(R.id.companySpinner);
+        ArrayAdapter<CharSequence> usersAdapter = ArrayAdapter.createFromResource(this, R.array.users, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> companyAdapter = ArrayAdapter.createFromResource(this, R.array.company, android.R.layout.simple_spinner_item);
+        usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mLoginSpinner.setAdapter(usersAdapter);
+        mCompanySpinner.setAdapter(companyAdapter);
 
-        mCurrentUser = adapter.getItem(0).toString();
+        mCurrentUser = usersAdapter.getItem(0).toString();
+        mCurrentCompany = companyAdapter.getItem(0).toString();
 
         mLoginSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -43,6 +51,19 @@ public class LoginActivity extends FragmentActivity {
                 mCurrentUser = (String) parent.getItemAtPosition(position);
                 Constants.setCurrentUserId(position);
                 Constants.setCurrentUser(mCurrentUser);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mCompanySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mCurrentCompany = (String) parent.getItemAtPosition(position);
+                Constants.setCurrentCompany(mCurrentCompany);
             }
 
             @Override
@@ -61,6 +82,7 @@ public class LoginActivity extends FragmentActivity {
         mMixPanel = (CheckBox) findViewById(R.id.checkBoxMixPanel);
         mFlurry = (CheckBox) findViewById(R.id.checkBoxFlurry);
         mCountly = (CheckBox) findViewById(R.id.checkBoxCountly);
+        mLocalytics = (CheckBox) findViewById(R.id.checkBoxLocalytics);
 
         mMixPanel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -78,6 +100,12 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Constants.enableCountly = isChecked;
+            }
+        });
+        mLocalytics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Constants.enableLocalytics = isChecked;
             }
         });
     }

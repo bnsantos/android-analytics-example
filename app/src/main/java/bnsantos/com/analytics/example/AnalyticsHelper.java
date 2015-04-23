@@ -3,6 +3,7 @@ package bnsantos.com.analytics.example;
 import android.content.Context;
 
 import com.flurry.android.FlurryAgent;
+import com.localytics.android.Localytics;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import org.json.JSONException;
@@ -26,6 +27,7 @@ public class AnalyticsHelper {
         initMixPanel();
         initFlurry();
         initCountly();
+        initLocalytics();
     }
 
     private void initMixPanel() {
@@ -35,6 +37,7 @@ public class AnalyticsHelper {
             mMixpanelAPI.getPeople().set("last_login", Calendar.getInstance().getTime());
             mMixpanelAPI.getPeople().set("name", Constants.getCurrentUser());
             mMixpanelAPI.getPeople().set("gender", "female");
+            mMixpanelAPI.getPeople().set("company", Constants.getCurrentCompany());
 
             mMixpanelAPI.alias(Constants.getCurrentUserId(), Constants.getCurrentUser());
             JSONObject props = new JSONObject();
@@ -57,10 +60,23 @@ public class AnalyticsHelper {
         }
     }
 
+    private void initLocalytics(){
+        if(Constants.enableLocalytics){
+            Localytics.setIdentifier("customer_name", Constants.getCurrentUser());
+            Localytics.setIdentifier("gender", "female");
+            Localytics.setIdentifier("company", Constants.getCurrentCompany());
+
+            Localytics.setProfileAttribute("company",  Constants.getCurrentCompany());
+            Localytics.setProfileAttribute("gender",  Constants.getCurrentCompany());
+            Localytics.setProfileAttribute("customer_name",  Constants.getCurrentUser());
+        }
+    }
+
     public void trackEvent(OperationType operationType) {
         sendMixPanelEvent(operationType);
         sendFlurryEvent(operationType);
         logCountlyEvent(operationType);
+        sendLocalyticsEvent(operationType);
     }
 
     public void onStart() {
@@ -111,6 +127,7 @@ public class AnalyticsHelper {
 
             eventParams.put("User", Constants.getCurrentUser());
             eventParams.put("Plan", "Premium");
+            eventParams.put("company", Constants.getCurrentCompany());
 
             FlurryAgent.logEvent(operationType.name(), eventParams);
         }
@@ -133,6 +150,28 @@ public class AnalyticsHelper {
         if (Constants.enableFlurry) {
             FlurryAgent.setGender(com.flurry.android.Constants.FEMALE);
             FlurryAgent.setUserId(Constants.getCurrentUserId());
+        }
+    }
+
+    public void onResume(String screenName){
+        if(Constants.enableLocalytics){
+            Localytics.openSession();
+            Localytics.tagScreen(screenName);
+            Localytics.upload();
+        }
+    }
+
+    private void sendLocalyticsEvent(OperationType operationType){
+        if(Constants.enableLocalytics){
+            Map<String, String> eventParams = new HashMap<String, String>();
+            eventParams.put("User", Constants.getCurrentUser());
+            eventParams.put("UserId", Constants.getCurrentUserId());
+            eventParams.put("Plan", "Premium");
+            eventParams.put("Gender", "Female");
+            eventParams.put("Device", "android");
+            eventParams.put("company", Constants.getCurrentCompany());
+            eventParams.put("Language", mContext.getResources().getConfiguration().locale.getLanguage());
+            Localytics.tagEvent(operationType.name(), eventParams);
         }
     }
 }

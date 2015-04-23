@@ -11,12 +11,14 @@ public class Constants {
     public static boolean enableMixPanel = false;
     public static boolean enableFlurry = false;
     public static boolean enableCountly = false;
+    public static boolean enableLocalytics = false;
     private static String CURRENT_USER;
     private static String CURRENT_USER_ID;
-    private static String MIXPANEL_TOKEN = "1ee93f4be1cecc3f57224c3630e93df7"; //Set your default token here
-    private static String FLURRY_TOKEN = "YWY8N8FP3QWDH4DMHY7H";  //Your flurry token
-    private static String COUNTLY_SERVER = "http://54.84.47.23/"; //Your countly server here
-    private static String COUNTLY_APP_KEY = "edaa4c7b72c9b586203b68f703cd2f04bd9b20c6"; //Your countly app key here
+    private static String CURRENT_COMPANY;
+    private static String MIXPANEL_TOKEN = "YOUR_TOKEN_HERE";
+    private static String FLURRY_TOKEN = "YOUR_TOKEN_HERE";
+    private static String COUNTLY_SERVER = "YOUR_SERVER_HERE";
+    private static String COUNTLY_APP_KEY = "YOUR_TOKEN_HERE";
 
     public static String getCurrentUser() {
         return CURRENT_USER;
@@ -32,6 +34,14 @@ public class Constants {
 
     public static void setCurrentUserId(int id) {
         Constants.CURRENT_USER_ID = Integer.toString(id);
+    }
+
+    public static String getCurrentCompany() {
+        return CURRENT_COMPANY;
+    }
+
+    public static void setCurrentCompany(String CURRENT_COMPANY) {
+        Constants.CURRENT_COMPANY = CURRENT_COMPANY;
     }
 
     public static String getMixpanelToken() {

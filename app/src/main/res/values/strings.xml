@@ -17,6 +17,13 @@
         <item>Britney Spears</item>
     </string-array>
 
+    <string-array name="company">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+
     <string name="login">Login</string>
     <string name="dialog_mix_panel_title">Set new MixPanel Token</string>
     <string name="dialog_flurry_title">Set new Flurry Token</string>
@@ -40,4 +47,5 @@
     <string name="enable_mix_panel">Enable MixPanel</string>
     <string name="enable_flurry">Enable Flurry</string>
     <string name="enable_countly">Enable Countly</string>
+    <string name="enable_localytics">Enable Localytics</string>
 </resources>

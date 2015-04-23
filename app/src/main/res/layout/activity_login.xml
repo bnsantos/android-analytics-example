@@ -16,12 +16,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
+    <Spinner
+        android:id="@+id/companySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userSpinner" />
+
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/userSpinner"
+        android:layout_below="@+id/companySpinner"
         android:text="@string/login" />
 
     <CheckBox
@@ -48,5 +54,11 @@
         android:layout_below="@+id/checkBoxFlurry"
         android:text="@string/enable_countly" />
 
-
+    <CheckBox
+        android:id="@+id/checkBoxLocalytics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/checkBoxCountly"
+        android:text="@string/enable_localytics" />
 </RelativeLayout>

@@ -133,7 +133,13 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onStop() {
-        mHelper.onStop();
         super.onStop();
+        mHelper.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mHelper.onResume(MainActivity.class.getSimpleName());
     }
 }
